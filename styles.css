@@ -1,0 +1,76 @@
+/** CSS Styles */
+
+#getting-started .intro {
+  display: flex;
+  justify-content: center;
+  margin: 4rem 0;
+}
+
+#getting-started .card {
+  border-radius: 0;
+  margin-bottom: 5rem;
+}
+
+#getting-started a {
+  color: inherit;
+}
+
+#getting-started .list {
+  margin: 0 2rem !important;
+}
+
+#getting-started main {
+  text-align: center;
+}
+
+#getting-started h2 {
+  text-align: center;
+}
+
+/** From original quantum-music */
+
+body {
+  font-family: Helvetica Neue, Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+}
+
+table {
+  border: 2px solid #42b983;
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+th {
+  background-color: #0000ff;
+  color: rgba(255,255,255,0.66);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+td {
+  background-color: #ffffff;
+}
+
+th, td {
+  min-width: 50px;
+  padding: 10px 20px;
+}
+
+th.active {
+  color: #fff;
+}
+
+#raw {
+  position: absolute;
+  top: 0;
+  left: 1000px;
+}
+
+#degree-decimals {
+  width: 50px;
+}
