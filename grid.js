@@ -91,7 +91,7 @@ var desiredPermutationMatrix = math.matrix(
       [.00, .00, .00, .00, .00, .00, .00, 1.0], //B4
       [1.0, .00, .00, .00, .00, .00, .00, .00]]); //C5
 
-var matrixToOptimize = desiredMelodyMatrix;
+var matrixToOptimize = desiredPermutationMatrix;
 
 // constant for number of degrees of freedom in 8 dimensional rotations
 var rotationDegOfFreedom = 28;
@@ -323,6 +323,11 @@ function optimizeRotationAngles(lossFunction) {
     }
   }
 
+  //TODO: Remember to transpose the unitary matrix before using it as a QC gate
+  finalRotMatrix = math.transpose(computeStochasticMatrix(arrayOfAnglesRad, false));
+  finalRotMatrix = math.round(finalRotMatrix, 10);
+  console.log(math.print("TRANSPOSED $foo", {foo: math.format(finalRotMatrix,
+        {notation: 'fixed', precision: 15})}));
   //console.log("minDistance: " + minDistance);
   //console.log("  euclideanDistance: " + lossFunction(arrayOfAnglesRad));
   //console.log("  arrayOfAnglesRad: " + arrayOfAnglesRad);
