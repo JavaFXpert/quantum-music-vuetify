@@ -10,8 +10,45 @@ for(var i=0;i<soundpack_index.length;i++){
 }
 
 var vm = Vue.component('piano-component', {
-  template: '<h1>My Piano</h1>',
-  //el: "#piano",
+  template:
+    '<div>' +
+      '<div>' +
+        '<h1>My Piano</h1>' +
+        '<div class="audioplayer" v-for="s in sounddata">' +
+          '<audio :data-num="s.number">' +
+            '<source :src="s.url" type="audio/ogg"/>' +
+          '</audio>' +
+        '</div>' +
+      '</div>' +
+      '<div class="center_box">' +
+        '<div class="keyboard">' +
+          '<div class="pianokey" v-for="s in display_keys">' +
+            '<div class="white" v-if="s.type==&quot;white&quot;" @click="addnote(s.num)" :class="get_current_highlight(s.num,s.key)?&quot;playing&quot;:&quot;&quot;">' +
+              '<div class="label">{{String.fromCharCode(s.key)}}</div>' +
+            '</div>' +
+            '<div class="black" v-if="s.type==&quot;black&quot;" @click="addnote(s.num)" :class="get_current_highlight(s.num,s.key)?&quot;playing&quot;:&quot;&quot;">' +
+              '<div class="label">{{String.fromCharCode(s.key)}}</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+      '</div><br/>' +
+      '<div class="controls">' +
+        '<ul class="notes_list" v-if="notes.length&gt;0">' +
+          '<li v-for="(note,id) in notes" :class="now_note_id-1==id?&quot;playing&quot;:&quot;&quot;">' +
+            '<div class="num">{{note.num}}</div>' +
+            '<div class="time">{{note.time}}</div>' +
+          '</li>' +
+        '</ul>' +
+        '<button @click="load_sample">Sample</button>' +
+        '<button @click="playnext(1)">Playnext</button>' +
+        '<button v-if="playing_time&lt;=1" @click="startplay">Startplay<i class="fa fa-play"></i></button>' +
+        '<button v-if="playing_time&gt;1" @click="stopplay">Stopplay<i class="fa fa-pause"></i></button>' +
+        '<button v-if="record_time&lt;=0" @click="start_record">Record<i class="fa fa-circle"></i></button>' +
+        '<button v-if="record_time&gt;=1" @click="stop_record">StopRecord<i class="fa fa-top"></i></button>' +
+        '<button @click="notes=[]">Clear</button>' +
+        '<h4>{{playing_time+record_time}}</h4>' +
+      '</div>' +
+    '</div>',
   data: function () {
     return {
       sounddata: soundpack,
