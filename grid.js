@@ -69,31 +69,31 @@ var rv = {
 
 };
 
-// C4  D4  E4  F4  G4  A4  B4  C5
-var desiredHarmonyMatrix = math.matrix(
-    [[.00, .00, .25, .25, .25, .25, .00, .00], //C4
-      [.00, .00, .00, .25, .25, .25, .25, .00], //D4
-      [.20, .00, .00, .00, .20, .20, .20, .20], //E4
-      [.20, .20, .00, .00, .00, .20, .00, .20], //F4
-      [.20, .20, .20, .00, .00, .00, .20, .20], //G4
-      [.20, .20, .20, .20, .00, .00, .00, .20], //A4
-      [.00, .33, .33, .00, .33, .00, .00, .00], //B4
-      [.00, .00, .25, .25, .25, .25, .00, .00]]); //C5
-
-// C4  D4  E4  F4  G4  A4  B4  C5
 var desiredMelodyMatrix = math.matrix(
-    [[.00, .30, .25, .20, .15, .10, .00, .00], //C4
-      [.00, .00, .30, .25, .20, .15, .10, .00], //D4
-      [.10, .25, .00, .20, .15, .13, .10, .07], //E4
-      [.05, .20, .25, .00, .20, .20, .00, .10], //F4
-      [.05, .10, .15, .25, .00, .20, .15, .10], //G4
-      [.07, .08, .10, .15, .25, .00, .20, .15], //A4
-      [.00, .25, .20, .00, .25, .30, .00, .00], //B4
-      [.00, .00, .25, .10, .05, .25, .35, .00]]); //C5
+//      C4   D4   E4   F4   G4   A4   B4   C5
+    [ [.00, .50, .50, .00, .00, .00, .00, .00],   //C4
+      [.25, .00, .50, .25, .00, .00, .00, .00],   //D4
+      [.00, .40, .00, .40, .20, .00, .00, .00],   //E4
+      [.00, .00, .40, .00, .40, .20, .00, .00],   //F4
+      [.00, .00, .00, .40, .00, .40, .20, .00],   //G4
+      [.00, .00, .00, .00, .40, .00, .40, .20],   //A4
+      [.00, .00, .00, .00, .30, .50, .00, .20],   //B4
+      [.00, .00, .00, .00, .00, .50, .50, .00]]); //C5
 
-// C4  D4  E4  F4  G4  A4  B4  C5
-var desiredPermutationMatrix = math.matrix(
-    [[.00, 1.0, .00, .00, .00, .00, .00, .00], //C4
+var desiredHarmonyMatrix = math.matrix(
+//      C4   D4   E4   F4   G4   A4   B4   C5
+    [ [.00, .00, .50, .00, .00, .50, .00, .00],   //C4
+      [.00, .00, .00, .50, .00, .00, .50, .00],   //D4
+      [.50, .00, .00, .00, .50, .00, .00, .00],   //E4
+      [.00, .50, .00, .00, .00, .50, .00, .00],   //F4
+      [.00, .00, .50, .00, .00, .00, .50, .00],   //G4
+      [.00, .00, .00, .50, .00, .00, .00, .50],   //A4
+      [.00, .50, .00, .00, .50, .00, .00, .00],   //B4
+      [.00, .00, .50, .00, .00, .50, .00, .00]]); //C5
+
+var desiredMelodicPermutationMatrix = math.matrix(
+//      C4   D4   E4   F4   G4   A4   B4   C5
+    [ [.00, 1.0, .00, .00, .00, .00, .00, .00], //C4
       [.00, .00, 1.0, .00, .00, .00, .00, .00], //D4
       [.00, .00, .00, 1.0, .00, .00, .00, .00], //E4
       [.00, .00, .00, .00, 1.0, .00, .00, .00], //F4
@@ -102,7 +102,40 @@ var desiredPermutationMatrix = math.matrix(
       [.00, .00, .00, .00, .00, .00, .00, 1.0], //B4
       [1.0, .00, .00, .00, .00, .00, .00, .00]]); //C5
 
-var matrixToOptimize = desiredPermutationMatrix;
+var desiredHarmonicPermutationMatrix = math.matrix(
+//      C4   D4   E4   F4   G4   A4   B4   C5
+    [ [.00, .00, 1.0, .00, .00, .00, .00, .00], //C4
+      [.00, .00, .00, 1.0, .00, .00, .00, .00], //D4
+      [.00, .00, .00, .00, 1.0, .00, .00, .00], //E4
+      [.00, .00, .00, .00, .00, 1.0, .00, .00], //F4
+      [.00, .00, .00, .00, .00, .00, 1.0, .00], //G4
+      [.00, .00, .00, .00, .00, .00, .00, 1.0], //A4
+      [.00, 1.0, .00, .00, .00, .00, .00, .00], //B4
+      [1.0, .00, .00, .00, .00, .00, .00, .00]]); //C5
+
+var equalMelodyMatrix = math.matrix(
+//      C4    D4    E4    F4    G4    A4    B4    C5
+    [ [.125, .125, .125, .125, .125, .125, .125, .125],   //C4
+      [.125, .125, .125, .125, .125, .125, .125, .125],   //D4
+      [.125, .125, .125, .125, .125, .125, .125, .125],   //E4
+      [.125, .125, .125, .125, .125, .125, .125, .125],   //F4
+      [.125, .125, .125, .125, .125, .125, .125, .125],   //G4
+      [.125, .125, .125, .125, .125, .125, .125, .125],   //A4
+      [.125, .125, .125, .125, .125, .125, .125, .125],   //B4
+      [.125, .125, .125, .125, .125, .125, .125, .125]]); //C5
+
+var equalHarmonyMatrix = math.matrix(
+//      C4    D4    E4    F4    G4    A4    B4    C5
+    [ [.125, .125, .125, .125, .125, .125, .125, .125],   //C4
+      [.125, .125, .125, .125, .125, .125, .125, .125],   //D4
+      [.125, .125, .125, .125, .125, .125, .125, .125],   //E4
+      [.125, .125, .125, .125, .125, .125, .125, .125],   //F4
+      [.125, .125, .125, .125, .125, .125, .125, .125],   //G4
+      [.125, .125, .125, .125, .125, .125, .125, .125],   //A4
+      [.125, .125, .125, .125, .125, .125, .125, .125],   //B4
+      [.125, .125, .125, .125, .125, .125, .125, .125]]); //C5
+
+var matrixToOptimize = desiredMelodyMatrix;
 
 // constant for number of degrees of freedom in 8 dimensional rotations
 var rotationDegOfFreedom = 28;
@@ -346,65 +379,3 @@ function optimizeRotationAngles(lossFunction) {
 }
 
 // end of optimization code -----------
-
-//TODO: Where should the following code go?
-/*
-$(window).keydown(function(e){
-  var key = e.which;
-  vm.now_press_key=key;
-  console.log(key);
-  for(var i=0;i<vm.display_keys.length;i++){
-    if (key==vm.display_keys[i].key){
-      vm.addnote(vm.display_keys[i].num)
-    }
-  }
-});
-
-$(window).keyup(function(){
-  vm.now_press_key=-1;
-});
-*/
-
-
-
-
-// bootstrap the demo
-/*
-var demo = new Vue({
-  el: '#demo',
-  data: {
-    gridNumRowsCols: 8,
-    gridRowNames: ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'X'],
-    gridColNames: ["C'", "D'", "E'", "F'", "G'", "A'", "B'", "X'"],
-    rotationangles : rotationangles,
-    showuni: showuni,
-    rv: rv
-  },
-  methods: {
-    toggleuni: function () {
-      showuni = !showuni;
-
-      //TODO: Find a way for the showuni variable to cause
-      // the computeStochasticMatrix() method to be run, instead of
-      // resorting to the following hack
-      rotationangles [0].value = 359 - rotationangles [0].value;
-      rotationangles [0].value = 359 - rotationangles [0].value;
-    },
-    optimizerotationangles: function() {
-      var angles180DegreeArray = Array(rotationDegOfFreedom).fill(180);
-      for (var i = 0; i < rotationDegOfFreedom; i++) {
-        rotationangles[i].value = angles180DegreeArray[i];
-      }
-
-      var solutionInRad = optimizeRotationAngles(loss);
-      var solutionInDeg = Array(rotationDegOfFreedom).fill(0);
-      for (var i = 0; i < rotationDegOfFreedom; i++) {
-        solutionInDeg[i] = radiansToDegrees(solutionInRad[i]);
-        solutionInDeg = math.round(solutionInDeg,  rv.degreedecimals);
-        rotationangles[i].value = solutionInDeg[i];
-      }
-      console.log("solution is: " + solutionInDeg);
-    },
-  }
-})
-*/

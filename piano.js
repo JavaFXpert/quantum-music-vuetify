@@ -132,17 +132,3 @@ var vm = new Vue({
 });
 */
 
-$(window).keydown(function(e){
-  var key = e.which;
-  vm.now_press_key=key;
-  console.log(key);
-  for(var i=0;i<vm.display_keys.length;i++){
-    if (key==vm.display_keys[i].key){
-      vm.addnote(vm.display_keys[i].num)
-    }
-  }
-});
-
-$(window).keyup(function(){
-  vm.now_press_key=-1;
-});
