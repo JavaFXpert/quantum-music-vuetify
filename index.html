@@ -114,12 +114,12 @@
 
                 <table>
                   <tbody>
-                  <tr v-for="(srow, srowIdx) in 7">
-                    <td v-for="(scol, scolIdx) in 4">
-                      <!--label>{{rotationangles [(srowIdx) * 4 + (scolIdx)].label}}</label-->
-                      <!--input type="range" v-model="rotationangles [(srowIdx) * 4 + (scolIdx)].value" min="0" max="359" :step="Math.pow(10, -rv.degreedecimals)"-->
-                      <v-slider :label="rotationangles [(srowIdx) * 4 + (scolIdx)].label" class="rot-sliders" thumb-label v-model="rotationangles [(srowIdx) * 4 + (scolIdx)].value" min="0" max="359" :step="Math.pow(10, -rv.degreedecimals)">
-                        <!--span>{{rotationangles [(srowIdx) * 4 + (scolIdx)].value}}</span-->
+                  <tr v-for="(srow, srowIdx) in 4">
+                    <td v-for="(scol, scolIdx) in 7">
+                      <label>{{rotationangles [(srowIdx) * 7 + (scolIdx)].label}}</label>
+                      <input type="range" v-model="rotationangles [(srowIdx) * 7 + (scolIdx)].value" min="0" max="359" :step="Math.pow(10, -rv.degreedecimals)">
+                      <!--span>{{rotationangles [(srowIdx) * 7 + (scolIdx)].value}}</span-->
+                      <!--v-slider :label="rotationangles [(srowIdx) * 4 + (scolIdx)].label" class="rot-sliders" thumb-label v-model="rotationangles [(srowIdx) * 4 + (scolIdx)].value" min="0" max="359" :step="Math.pow(10, -rv.degreedecimals)"-->
                       </v-slider>
                     </td>
                   </tr>
