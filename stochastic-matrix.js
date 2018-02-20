@@ -1,3 +1,4 @@
+// register the stochastic-matrix component
 Vue.component('stochastic-matrix', {
   props: {
     numrowscols: Number,
