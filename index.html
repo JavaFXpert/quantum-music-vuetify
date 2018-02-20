@@ -69,12 +69,24 @@
             <v-tab>Unistochastic</v-tab>
             <v-tab-item>
               <v-container fluid>
-                <demo-grid
-                    :numrowscols="gridNumRowsCols"
-                    :rownames="gridRowNames"
-                    :colnames="gridColNames">
-                </demo-grid>
+                <v-layout row wrap>
+                  <v-flex xs6>
+                    <demo-grid
+                        :numrowscols="gridNumRowsCols"
+                        :rownames="gridRowNames"
+                        :colnames="gridColNames">
+                    </demo-grid>
+                  </v-flex>
+                  <v-flex xs6>
+                    <stochastic-matrix
+                        :numrowscols="gridNumRowsCols"
+                        :rownames="gridRowNames"
+                        :colnames="gridColNames"
+                        :mathmatrix="rv.desiredMelodyMatrix">
+                    </stochastic-matrix>
+                  </v-flex>
 
+                  <v-flex xs12>
                 <input type="checkbox" id="unistochastic" @click="toggleuni" checked="showuni"/>
                 <label for="unistochastic">Unistochastic</label>
 
@@ -113,18 +125,8 @@
                   </tr>
                   </tbody>
                 </table>
-              </v-container>
-            </v-tab-item>
-
-            <v-tab>Stochastic</v-tab>
-            <v-tab-item>
-              <v-container fluid>
-                <stochastic-matrix
-                  :numrowscols="gridNumRowsCols"
-                  :rownames="gridRowNames"
-                  :colnames="gridColNames"
-                  :mathmatrix="rv.desiredMelodyMatrix">
-                </stochastic-matrix>
+                  </v-flex>
+                </v-layout>
               </v-container>
             </v-tab-item>
 
