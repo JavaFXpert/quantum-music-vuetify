@@ -19,11 +19,17 @@ Vue.component('stochastic-matrix', {
       '<tbody>' +
         '<tr v-for="(rowArray, rowIdx) in numrowscols">' +
           '<th>{{rownames[rowIdx]}}</th>' +
-          //'<td v-for="(colNum, colIdx) in numrowscols">' +
-          //  '{{parseFloat(Math.round(mathmatrix[rowIdx][colIdx] * 10000) / 10000).toFixed(4)}}' +
-          //'</td>' +
+          '<td v-for="(colNum, colIdx) in numrowscols">' +
+            //'{{parseFloat(Math.round(mathmatrix[rowIdx][colIdx] * 10000) / 10000).toFixed(4)}}' +
+            '{{getRoundedMatrixElement(mathmatrix, rowIdx, colIdx)}}' +
+          '</td>' +
         '</tr>' +
       '</tbody>' +
-    '</table>'
+    '</table>',
+  methods: {
+    getRoundedMatrixElement: function(matrix, rowNum, colNum) {
+      return parseFloat(Math.round(matrix.subset(math.index(rowNum, colNum)) * 10000) / 10000).toFixed(4);
+    }
+  }
 });
 
