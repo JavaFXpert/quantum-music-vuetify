@@ -4,7 +4,7 @@ Vue.component('stochastic-matrix', {
     colnames: Array,
     //TODO: study how to be able to camel case rownames, etc. in Vue
     rownames: Array,
-    mathmatrix: Object
+    mathmatrix: Array
   },
   template:
     '<table>' +
@@ -20,16 +20,12 @@ Vue.component('stochastic-matrix', {
         '<tr v-for="(rowArray, rowIdx) in numrowscols">' +
           '<th>{{rownames[rowIdx]}}</th>' +
           '<td v-for="(colNum, colIdx) in numrowscols">' +
-            //'{{parseFloat(Math.round(mathmatrix[rowIdx][colIdx] * 10000) / 10000).toFixed(4)}}' +
-            '{{getRoundedMatrixElement(mathmatrix, rowIdx, colIdx)}}' +
+            '<input type="text" size="3" v-model="mathmatrix[rowIdx][colIdx]"/>' +
           '</td>' +
         '</tr>' +
       '</tbody>' +
     '</table>',
   methods: {
-    getRoundedMatrixElement: function(matrix, rowNum, colNum) {
-      return parseFloat(Math.round(matrix.subset(math.index(rowNum, colNum)) * 10000) / 10000).toFixed(4);
-    }
   }
 });
 

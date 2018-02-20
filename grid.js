@@ -57,10 +57,21 @@ var rv = {
   totalcostbetweenmatrices: 0.0,
 
   // TODO: Use different matrix. This is just for experimentation
-  eyematrix: math.eye(8)
+  //eyematrix: math.eye(8),
 
+  desiredMelodyMatrix:
+//        C4   D4   E4   F4   G4   A4   B4   C5
+      [ [.00, .50, .50, .00, .00, .00, .00, .00],   //C4
+        [.25, .00, .50, .25, .00, .00, .00, .00],   //D4
+        [.00, .40, .00, .40, .20, .00, .00, .00],   //E4
+        [.00, .00, .40, .00, .40, .20, .00, .00],   //F4
+        [.00, .00, .00, .40, .00, .40, .20, .00],   //G4
+        [.00, .00, .00, .00, .40, .00, .40, .20],   //A4
+        [.00, .00, .00, .00, .30, .50, .00, .20],   //B4
+        [.00, .00, .00, .00, .00, .50, .50, .00]]
 };
 
+/*
 var desiredMelodyMatrix = math.matrix(
 //      C4   D4   E4   F4   G4   A4   B4   C5
     [ [.00, .50, .50, .00, .00, .00, .00, .00],   //C4
@@ -71,6 +82,7 @@ var desiredMelodyMatrix = math.matrix(
       [.00, .00, .00, .00, .40, .00, .40, .20],   //A4
       [.00, .00, .00, .00, .30, .50, .00, .20],   //B4
       [.00, .00, .00, .00, .00, .50, .50, .00]]); //C5
+*/
 
 var desiredHarmonyMatrix = math.matrix(
 //      C4   D4   E4   F4   G4   A4   B4   C5
@@ -127,7 +139,7 @@ var equalHarmonyMatrix = math.matrix(
       [.125, .125, .125, .125, .125, .125, .125, .125],   //B4
       [.125, .125, .125, .125, .125, .125, .125, .125]]); //C5
 
-var matrixToOptimize = desiredMelodyMatrix;
+var matrixToOptimize = rv.desiredMelodyMatrix;
 
 // constant for number of degrees of freedom in 8 dimensional rotations
 var rotationDegOfFreedom = 28;
