@@ -14,9 +14,21 @@
 
   <link href="styles.css" rel="stylesheet" type="text/css">
   <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+
+  <!--script src="https://unpkg.com/vue/dist/vue.js"></script-->
   <script src="scripts/vue.js"></script>
+
+  <!--script src="https://unpkg.com/vuetify/dist/vuetify.js"></script-->
+  <script src="scripts/vuetify.js"></script>
+
   <script src="scripts/math.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+  <script src="grid.js"></script>
+  <script src="piano.js"></script>
+  <script src="stochastic-matrix.js"></script>
 </head>
+
 <body>
   <div id="app">
     <v-app>
@@ -106,9 +118,14 @@
 
             <v-tab>Stochastic</v-tab>
             <v-tab-item>
-              <v-card flat>
-                <v-card-text>Stochastic matrix</v-card-text>
-              </v-card>
+              <v-container fluid>
+                <stochastic-matrix
+                  :numrowscols="gridNumRowsCols"
+                  :rownames="gridRowNames"
+                  :colnames="gridColNames"
+                  :mathmatrix="rv.eyematrix">
+                </stochastic-matrix>
+              </v-container>
             </v-tab-item>
 
             <v-tab>Piano</v-tab>
@@ -148,12 +165,6 @@
     </table>
   </script>
 
-
-  <script src="https://unpkg.com/vue/dist/vue.js"></script>
-  <script src="https://unpkg.com/vuetify/dist/vuetify.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <script src="grid.js"></script>
-  <script src="piano.js"></script>
   <script>
     //Vue.component('piano-component', {
     //  template: '<h1>Hi</h1>'
@@ -177,8 +188,8 @@
 
         // From Quantum Harmony
         gridNumRowsCols: 8,
-        gridRowNames: ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'X'],
-        gridColNames: ["C'", "D'", "E'", "F'", "G'", "A'", "B'", "X'"],
+        gridRowNames: ["C", "D", "E", "F", "G", "A", "B", "C'"],
+        gridColNames: ["C", "D", "E", "F", "G", "A", "B", "C'"],
         rotationangles : rotationangles,
         showuni: showuni,
         rv: rv

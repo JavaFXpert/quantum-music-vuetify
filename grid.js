@@ -56,6 +56,9 @@ var rv = {
   // Calculated total cost between desired matrix and unistochastic matrix
   totalcostbetweenmatrices: 0.0,
 
+  // TODO: Use different matrix. This is just for experimentation
+  eyematrix: math.eye(8)
+
 };
 
 var desiredMelodyMatrix = math.matrix(
