@@ -132,7 +132,7 @@ Vue.component('unistochastic-matrix', {
   computed: {
     matrixAsArray: function () {
       //return math.eye(8).valueOf();
-      return computeStochasticMatrix(createAnglesArrayFromRotationAngles(), showuni).valueOf();
+      return this.computeStochasticMatrix(this.createAnglesArrayFromRotationAngles(), showuni).valueOf();
     }
   },
   methods: {
@@ -166,7 +166,7 @@ Vue.component('unistochastic-matrix', {
     createAnglesArrayFromRotationAngles: function() {
       var anglesArray = Array(rotationDegOfFreedom).fill(0);
       for (var i = 0; i < rotationDegOfFreedom; i++) {
-        anglesArray[i] = degreesToRadians(rotationangles[i].value);
+        anglesArray[i] = this.degreesToRadians(rotationangles[i].value);
       }
 
       //console.log("anglesArray: " + anglesArray)
@@ -221,7 +221,7 @@ Vue.component('unistochastic-matrix', {
       var rotatedMatrixSquared = math.square(rotatedMatrix);
 
       // Calculate how closely this matrix fits the desired stochastic matrix
-      euclidean(rotatedMatrixSquared, matrixToOptimize);
+      this.euclidean(rotatedMatrixSquared, this.desiredmatrix);
 
       var retVal = rotatedMatrix;
       if (unistochastic) {
@@ -277,11 +277,11 @@ Vue.component('unistochastic-matrix', {
     },
 
     loss: function(arrayOfAngles) {
-      var rotMatrix = computeStochasticMatrix(arrayOfAngles, true);
+      var rotMatrix = this.computeStochasticMatrix(arrayOfAngles, true);
 
       // Get Euclidean distance between computed and desired matrices
       //var euclidDist = euclidean(rotMatrix, matrixToOptimize);
-      var euclidDist = euclidean(rotMatrix, desiredmatrix);
+      var euclidDist = this.euclidean(rotMatrix, desiredmatrix);
       //console.log("euclidDist: " + euclidDist);
       return euclidDist;
     },
@@ -299,13 +299,13 @@ Vue.component('unistochastic-matrix', {
       //For each degree of freedom this will be either 1 or -1, signifying direction of movement
       var unitDirectionArray = Array(rotationDegOfFreedom).fill(1);
 
-      var moveRadians = degreesToRadians(math.pow(10, -rv.degreedecimals));
-      var midpointAngleRad = degreesToRadians(180);
+      var moveRadians = this.degreesToRadians(math.pow(10, -rv.degreedecimals));
+      var midpointAngleRad = this.degreesToRadians(180);
 
       for (var i = 0; i < rotationDegOfFreedom; i++) {
-        arrayOfAnglesRad[i] = degreesToRadians(rotationangles[i].value);
+        arrayOfAnglesRad[i] = this.degreesToRadians(rotationangles[i].value);
       }
-      minDistance = lossFunction(arrayOfAnglesRad);
+      minDistance = this.lossFunction(arrayOfAnglesRad);
 
       for (var epochIdx = 0; epochIdx < rv.numepochs; epochIdx++) {
         //console.log("epochIdx: " + epochIdx);
