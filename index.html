@@ -76,7 +76,7 @@
                         :numrowscols="gridNumRowsCols"
                         :rownames="gridRowNames"
                         :colnames="gridColNames"
-                        :desiredmatrix="desiredMelodyMatrix">
+                        :wantedmatrix="desiredMelodyMatrix">
                     </unistochastic-matrix>
                   </v-flex>
                   <v-flex xs6>
@@ -84,7 +84,7 @@
                         :numrowscols="gridNumRowsCols"
                         :rownames="gridRowNames"
                         :colnames="gridColNames"
-                        :mathmatrix="desiredMelodyMatrix">
+                        :mathmatrix="desiredMelodyMatrix.valueOf()">
                     </stochastic-matrix>
                   </v-flex>
                 </v-layout>
@@ -124,7 +124,7 @@
         gridNumRowsCols: 8,
         gridRowNames: ["C", "D", "E", "F", "G", "A", "B", "C'"],
         gridColNames: ["C", "D", "E", "F", "G", "A", "B", "C'"],
-        desiredMelodyMatrix:
+        desiredMelodyMatrix: math.matrix(
 //      C4   D4   E4   F4   G4   A4   B4   C5
             [[.00, .50, .50, .00, .00, .00, .00, .00],   //C4
               [.25, .00, .50, .25, .00, .00, .00, .00],   //D4
@@ -133,7 +133,7 @@
               [.00, .00, .00, .40, .00, .40, .20, .00],   //G4
               [.00, .00, .00, .00, .40, .00, .40, .20],   //A4
               [.00, .00, .00, .00, .30, .50, .00, .20],   //B4
-              [.00, .00, .00, .00, .00, .50, .50, .00]] //C5
+              [.00, .00, .00, .00, .00, .50, .50, .00]]) //C5
       }
     })
   </script>

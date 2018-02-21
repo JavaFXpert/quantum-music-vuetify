@@ -68,7 +68,7 @@ Vue.component('unistochastic-matrix', {
     colnames: Array,
     //TODO: study how to be able to camel case rownames, etc. in Vue
     rownames: Array,
-    desiredmatrix: Array
+    wantedmatrix: Object
   },
   data: function() {
     return {
@@ -152,10 +152,10 @@ Vue.component('unistochastic-matrix', {
         rotationangles[i].value = angles180DegreeArray[i];
       }
 
-      var solutionInRad = optimizeRotationAngles(loss);
+      var solutionInRad = this.optimizeRotationAngles(this.loss);
       var solutionInDeg = Array(rotationDegOfFreedom).fill(0);
       for (var i = 0; i < rotationDegOfFreedom; i++) {
-        solutionInDeg[i] = radiansToDegrees(solutionInRad[i]);
+        solutionInDeg[i] = this.radiansToDegrees(solutionInRad[i]);
         solutionInDeg = math.round(solutionInDeg,  rv.degreedecimals);
         rotationangles[i].value = solutionInDeg[i];
       }
@@ -221,7 +221,7 @@ Vue.component('unistochastic-matrix', {
       var rotatedMatrixSquared = math.square(rotatedMatrix);
 
       // Calculate how closely this matrix fits the desired stochastic matrix
-      this.euclidean(rotatedMatrixSquared, this.desiredmatrix);
+      this.euclidean(rotatedMatrixSquared, this.wantedmatrix);
 
       var retVal = rotatedMatrix;
       if (unistochastic) {
@@ -281,7 +281,7 @@ Vue.component('unistochastic-matrix', {
 
       // Get Euclidean distance between computed and desired matrices
       //var euclidDist = euclidean(rotMatrix, matrixToOptimize);
-      var euclidDist = this.euclidean(rotMatrix, desiredmatrix);
+      var euclidDist = this.euclidean(rotMatrix, this.wantedmatrix);
       //console.log("euclidDist: " + euclidDist);
       return euclidDist;
     },
@@ -305,7 +305,7 @@ Vue.component('unistochastic-matrix', {
       for (var i = 0; i < rotationDegOfFreedom; i++) {
         arrayOfAnglesRad[i] = this.degreesToRadians(rotationangles[i].value);
       }
-      minDistance = this.lossFunction(arrayOfAnglesRad);
+      minDistance = lossFunction(arrayOfAnglesRad);
 
       for (var epochIdx = 0; epochIdx < rv.numepochs; epochIdx++) {
         //console.log("epochIdx: " + epochIdx);
@@ -320,7 +320,7 @@ Vue.component('unistochastic-matrix', {
             unitDirectionArray[dofIdx] = -1;
           }
           proposedCurAngRad += moveRadians * unitDirectionArray[dofIdx];
-          if (proposedCurAngRad >= 0.0 && proposedCurAngRad < degreesToRadians(360)) {
+          if (proposedCurAngRad >= 0.0 && proposedCurAngRad < this.degreesToRadians(360)) {
             arrayOfAnglesRad[dofIdx] = proposedCurAngRad;
 
             var tempDistance = lossFunction(arrayOfAnglesRad);
@@ -339,7 +339,7 @@ Vue.component('unistochastic-matrix', {
             while (!finishedWithWhileLoop) {
               loopIterations++;
               proposedCurAngRad += moveRadians * unitDirectionArray[dofIdx];
-              if (proposedCurAngRad >= 0.0 && proposedCurAngRad < degreesToRadians(360)) {
+              if (proposedCurAngRad >= 0.0 && proposedCurAngRad < this.degreesToRadians(360)) {
                 arrayOfAnglesRad[dofIdx] = proposedCurAngRad;
                 tempDistance = lossFunction(arrayOfAnglesRad);
                 if (tempDistance > minDistance) {
@@ -370,7 +370,7 @@ Vue.component('unistochastic-matrix', {
       }
 
       //TODO: Remember to transpose the unitary matrix before using it as a QC gate
-      finalRotMatrix = math.transpose(computeStochasticMatrix(arrayOfAnglesRad, false));
+      finalRotMatrix = math.transpose(this.computeStochasticMatrix(arrayOfAnglesRad, false));
       finalRotMatrix = math.round(finalRotMatrix, 10);
       console.log(math.print("TRANSPOSED $foo", {foo: math.format(finalRotMatrix,
             {notation: 'fixed', precision: 15})}));
