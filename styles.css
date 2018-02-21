@@ -1,3 +1,10 @@
+@charset "UTF-8";
+* {
+  vertical-align: top;
+  font-family: 微軟正黑體;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
 /** CSS Styles */
 
 #getting-started .intro {
@@ -75,20 +82,17 @@ th.active {
   width: 50px;
 }
 
-.rot-sliders {
-  width: 200px;
+input[type=range] {
+  margin-left: 8px;
+}
+
+.rot-slider {
+  width: 100px;
   padding: 0px;
   margin: 0px;
 }
 
-/** From Piano Project **/
-@charset "UTF-8";
-* {
-  vertical-align: top;
-  font-family: 微軟正黑體;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
+/** More from Piano Project **/
 
 html, body {
   width: 100%;
@@ -104,7 +108,6 @@ h2 {
 
 button {
   background-color: transparent;
-  border: none;
   border: solid 1px;
   padding: 4px 12px;
   border-radius: 4px;

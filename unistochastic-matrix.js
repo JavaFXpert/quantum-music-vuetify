@@ -99,31 +99,31 @@ Vue.component('unistochastic-matrix', {
         '</tbody>' +
       '</table>' +
       '<br/>' +
-      '<input type="checkbox" id="unistochastic" @click="toggleuni" checked="showuni"/>' +
-      '<label for="unistochastic">Unistochastic</label>' +
-      '<button @click="optimizerotationangles">Optimize</button>' +
-      '<label>Zeros penalty factor:</label>' +
-      '<input type="range" v-model="rv.zeroelementpenaltyfactor" min="0.0" max="1.0" step="0.1"/>' +
-      '<span>{{rv.zeroelementpenaltyfactor}}</span>' +
-      '<label>Degree decimals:</label>' +
-      '<input type="range" v-model="rv.degreedecimals" min="0" max="2" step="1" id="degree-decimals"/>' +
-      '<span>{{rv.degreedecimals}}</span>' +
-      '<div>' +
+      '<div class="ml-2">' +
+        '<button @click="optimizerotationangles" class="mr-4">Optimize</button>' +
+        '<input type="checkbox" id="unistochastic" @click="toggleuni" checked="showuni"/>' +
+        '<label for="unistochastic" class="mr-4">Unistochastic</label>' +
+        '<label>Zeros penalty factor:</label>' +
+        '<input type="range" v-model="rv.zeroelementpenaltyfactor" min="0.0" max="1.0" step="0.1"/>' +
+        '<span>{{rv.zeroelementpenaltyfactor}}</span><br/>' +
+        '<label>Degree decimals:</label>' +
+        '<input type="range" v-model="rv.degreedecimals" min="0" max="2" step="1" id="degree-decimals"/>' +
+        '<span class="mr-4">{{rv.degreedecimals}}</span>' +
         '<label>Epochs:</label>' +
         '<input type="range" v-model="rv.numepochs" min="1" max="50" step="1">' +
-        '<span>{{rv.numepochs}}</span>' +
-        '<span>{{ "Total cost: " + Math.round(rv.totalcostbetweenmatrices * 10000) / 10000 }}' +
-          '{{" = Euclidean distance: " + Math.round(rv.euclideandistance * 10000) / 10000}}' +
-          '{{" + Zeros distance penalty: " + Math.round(rv.addedpenalty * 10000) / 10000 }}' +
+        '<span>{{rv.numepochs}}</span><br/>' +
+        '<span>{{ "Total cost: " + Math.round(rv.totalcostbetweenmatrices * 100) / 100 }}' +
+          '{{" = Euclidean distance: " + Math.round(rv.euclideandistance * 100) / 100}}' +
+          '{{" + Zeros distance penalty: " + Math.round(rv.addedpenalty * 100) / 100 }}' +
         '</span>' +
       '</div>' +
       '<br/>' +
       '<table>' +
         '<tbody>' +
-          '<tr v-for="(srow, srowIdx) in 4">' +
-            '<td v-for="(scol, scolIdx) in 7">' +
-              '<label>{{rotationangles [(srowIdx) * 7 + (scolIdx)].label}}</label>' +
-              '<input type="range" v-model="rotationangles [(srowIdx) * 7 + (scolIdx)].value" min="0" max="359" :step="Math.pow(10, -rv.degreedecimals)">' +
+          '<tr v-for="(srow, srowIdx) in 7">' +
+            '<td v-for="(scol, scolIdx) in 4">' +
+              '<label>{{rotationangles [(srowIdx) * 4 + (scolIdx)].label}}</label>' +
+              '<input type="range" v-model="rotationangles [(srowIdx) * 4 + (scolIdx)].value" min="0" max="359" :step="Math.pow(10, -rv.degreedecimals)" class="rot-slider">' +
             '</td>' +
           '</tr>' +
         '</tbody>' +
@@ -372,8 +372,8 @@ Vue.component('unistochastic-matrix', {
       //TODO: Remember to transpose the unitary matrix before using it as a QC gate
       finalRotMatrix = math.transpose(this.computeStochasticMatrix(arrayOfAnglesRad, false));
       finalRotMatrix = math.round(finalRotMatrix, 10);
-      console.log(math.print("TRANSPOSED $foo", {foo: math.format(finalRotMatrix,
-            {notation: 'fixed', precision: 15})}));
+      //console.log(math.print("TRANSPOSED $foo", {foo: math.format(finalRotMatrix,
+      //      {notation: 'fixed', precision: 15})}));
       //console.log("minDistance: " + minDistance);
       //console.log("  euclideanDistance: " + lossFunction(arrayOfAnglesRad));
       //console.log("  arrayOfAnglesRad: " + arrayOfAnglesRad);
