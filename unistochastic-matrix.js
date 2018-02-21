@@ -221,7 +221,12 @@ Vue.component('unistochastic-matrix', {
       var rotatedMatrixSquared = math.square(rotatedMatrix);
 
       // Calculate how closely this matrix fits the desired stochastic matrix
-      this.euclidean(rotatedMatrixSquared, this.wantedmatrix);
+      try {
+        this.euclidean(rotatedMatrixSquared, this.wantedmatrix);
+      }
+      catch (err) {
+        console.log("err: " + err);
+      }
 
       var retVal = rotatedMatrix;
       if (unistochastic) {

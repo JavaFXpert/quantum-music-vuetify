@@ -26,8 +26,7 @@ Vue.component('stochastic-matrix', {
             '<input type="text" size="3" v-model="mathmatrix[rowIdx][colIdx]"/>' +
           '</td>' +
           '<td>' +
-            //'{{parseFloat(Math.round(rowTotal(rowIdx) * 100) / 100).toFixed(2)}}' +
-            '{{rowTotal(rowIdx) * 1.0}}' +
+            '{{parseFloat(Math.round(rowTotal(rowIdx) * 100) / 100).toFixed(2)}}' +
           '</td>' +
         '</tr>' +
       '</tbody>' +
@@ -36,7 +35,12 @@ Vue.component('stochastic-matrix', {
     rowTotal: function(rIdx) {
       var total = 0.0;
       for (var cIdx = 0; cIdx < this.numrowscols; cIdx++) {
-        total += this.mathmatrix[rIdx][cIdx];
+        try {
+          total += parseFloat(this.mathmatrix[rIdx][cIdx]);
+        }
+        catch(err) {
+          console.log("err: " + err);
+        }
       }
       return total;
     }
