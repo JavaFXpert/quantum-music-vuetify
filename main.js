@@ -1,5 +1,6 @@
 // Object wrapper for reactive variables. cv stands for common variables
 var cv = {
+  /*
   desiredMelodyMatrix:
 //      C4   D4   E4   F4   G4   A4   B4   C5
       [[.00, .50, .50, .00, .00, .00, .00, .00],   //C4
@@ -21,6 +22,7 @@ var cv = {
         [.00, .00, .00, .50, .00, .00, .00, .50],   //A4
         [.00, .50, .00, .00, .50, .00, .00, .00],   //B4
         [.00, .00, .50, .00, .00, .50, .00, .00]], //C5
+  */
 
   desiredMelodicPermutationMatrix:
 //      C4   D4   E4   F4   G4   A4   B4   C5

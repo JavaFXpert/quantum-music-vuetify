@@ -28,6 +28,8 @@
   <script src="piano.js"></script>
   <script src="stochastic-matrix.js"></script>
   <script src="unistochastic-matrix.js"></script>
+  <script src="stochastic-harmony-matrix.js"></script>
+  <script src="unistochastic-harmony-matrix.js"></script>
 </head>
 
 <body>
@@ -86,6 +88,30 @@
                         :colnames="gridColNames"
                         :mathmatrix="desiredMelodyMatrix.valueOf()">
                     </stochastic-matrix>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-tab-item>
+
+            <v-tab>Harmony Matrices</v-tab>
+            <v-tab-item>
+              <v-container fluid>
+                <v-layout row wrap>
+                  <v-flex xs6>
+                    <unistochastic-harmony-matrix
+                        :numrowscols="gridNumRowsCols"
+                        :rownames="gridRowNames"
+                        :colnames="gridColNames"
+                        :wantedmatrix="desiredHarmonyMatrix">
+                    </unistochastic-harmony-matrix>
+                  </v-flex>
+                  <v-flex xs6>
+                    <stochastic-harmony-matrix
+                        :numrowscols="gridNumRowsCols"
+                        :rownames="gridRowNames"
+                        :colnames="gridColNames"
+                        :mathmatrix="desiredHarmonyMatrix.valueOf()">
+                    </stochastic-harmony-matrix>
                   </v-flex>
                 </v-layout>
               </v-container>

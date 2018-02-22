@@ -6,7 +6,7 @@ var rotationDegOfFreedom = 28;
 // Object wrapper for reactive variables.
 // TODO: Ascertain how to not have to use a wrapper to make reactive variables stay in sync with
 //       the Vue data.
-var rv = {
+var hrv = {
 // The rotation angles to observe
   rotationangles: [
     { label: "CD", value: 0 },
@@ -59,8 +59,8 @@ var rv = {
   totalcostbetweenmatrices: 0.0
 };
 
-// register the unistochastic-matrix component
-Vue.component('unistochastic-matrix', {
+// register the unistochastic-harmony-matrix component
+Vue.component('unistochastic-harmony-matrix', {
   props: {
     numrowscols: Number,
     colnames: Array,
@@ -70,9 +70,9 @@ Vue.component('unistochastic-matrix', {
   },
   data: function() {
     return {
-      rotationangles: rv.rotationangles,
+      rotationangles: hrv.rotationangles,
       showuni: true,
-      rv: rv
+      hrv: hrv
     }
   },
   replace: true, //TODO: Learn what replace means
@@ -102,17 +102,17 @@ Vue.component('unistochastic-matrix', {
         '<input type="checkbox" id="unistochastic" @click="toggleuni" checked="showuni"/>' +
         '<label for="unistochastic" class="mr-4">Unistochastic</label>' +
         '<label>Zeros penalty factor:</label>' +
-        '<input type="range" v-model="rv.zeroelementpenaltyfactor" min="0.0" max="1.0" step="0.1"/>' +
-        '<span>{{rv.zeroelementpenaltyfactor}}</span><br/>' +
+        '<input type="range" v-model="hrv.zeroelementpenaltyfactor" min="0.0" max="1.0" step="0.1"/>' +
+        '<span>{{hrv.zeroelementpenaltyfactor}}</span><br/>' +
         '<label>Degree decimals:</label>' +
-        '<input type="range" v-model="rv.degreedecimals" min="0" max="2" step="1" id="degree-decimals"/>' +
-        '<span class="mr-4">{{rv.degreedecimals}}</span>' +
+        '<input type="range" v-model="hrv.degreedecimals" min="0" max="2" step="1" id="degree-decimals"/>' +
+        '<span class="mr-4">{{hrv.degreedecimals}}</span>' +
         '<label>Epochs:</label>' +
-        '<input type="range" v-model="rv.numepochs" min="1" max="50" step="1">' +
-        '<span>{{rv.numepochs}}</span><br/>' +
-        '<span>{{ "Total cost: " + Math.round(rv.totalcostbetweenmatrices * 100) / 100 }}' +
-          '{{" = Euclidean distance: " + Math.round(rv.euclideandistance * 100) / 100}}' +
-          '{{" + Zeros distance penalty: " + Math.round(rv.addedpenalty * 100) / 100 }}' +
+        '<input type="range" v-model="hrv.numepochs" min="1" max="50" step="1">' +
+        '<span>{{hrv.numepochs}}</span><br/>' +
+        '<span>{{ "Total cost: " + Math.round(hrv.totalcostbetweenmatrices * 100) / 100 }}' +
+          '{{" = Euclidean distance: " + Math.round(hrv.euclideandistance * 100) / 100}}' +
+          '{{" + Zeros distance penalty: " + Math.round(hrv.addedpenalty * 100) / 100 }}' +
         '</span>' +
       '</div>' +
       '<br/>' +
@@ -120,8 +120,8 @@ Vue.component('unistochastic-matrix', {
         '<tbody>' +
           '<tr v-for="(srow, srowIdx) in 7">' +
             '<td v-for="(scol, scolIdx) in 4">' +
-              '<label>{{rv.rotationangles [(srowIdx) * 4 + (scolIdx)].label}}</label>' +
-              '<input type="range" v-model="rv.rotationangles [(srowIdx) * 4 + (scolIdx)].value" min="0" max="359" :step="Math.pow(10, -rv.degreedecimals)" class="rot-slider">' +
+              '<label>{{hrv.rotationangles [(srowIdx) * 4 + (scolIdx)].label}}</label>' +
+              '<input type="range" v-model="hrv.rotationangles [(srowIdx) * 4 + (scolIdx)].value" min="0" max="359" :step="Math.pow(10, -hrv.degreedecimals)" class="rot-slider">' +
             '</td>' +
           '</tr>' +
         '</tbody>' +
@@ -140,22 +140,22 @@ Vue.component('unistochastic-matrix', {
       //TODO: Find a way for the showuni variable to cause
       // the computeStochasticMatrix() method to be run, instead of
       // resorting to the following hack
-      rv.rotationangles [0].value = 359 - rv.rotationangles [0].value;
-      rv.rotationangles [0].value = 359 - rv.rotationangles [0].value;
+      hrv.rotationangles [0].value = 359 - hrv.rotationangles [0].value;
+      hrv.rotationangles [0].value = 359 - hrv.rotationangles [0].value;
     },
 
     optimizerotationangles: function() {
       var angles180DegreeArray = Array(rotationDegOfFreedom).fill(180);
       for (var i = 0; i < rotationDegOfFreedom; i++) {
-        rv.rotationangles[i].value = angles180DegreeArray[i];
+        hrv.rotationangles[i].value = angles180DegreeArray[i];
       }
 
       var solutionInRad = this.optimizeRotationAngles(this.loss);
       var solutionInDeg = Array(rotationDegOfFreedom).fill(0);
       for (var i = 0; i < rotationDegOfFreedom; i++) {
         solutionInDeg[i] = this.radiansToDegrees(solutionInRad[i]);
-        solutionInDeg = math.round(solutionInDeg,  rv.degreedecimals);
-        rv.rotationangles[i].value = solutionInDeg[i];
+        solutionInDeg = math.round(solutionInDeg,  hrv.degreedecimals);
+        hrv.rotationangles[i].value = solutionInDeg[i];
       }
       console.log("solution is: " + solutionInDeg);
     },
@@ -164,7 +164,7 @@ Vue.component('unistochastic-matrix', {
     createAnglesArrayFromRotationAngles: function() {
       var anglesArray = Array(rotationDegOfFreedom).fill(0);
       for (var i = 0; i < rotationDegOfFreedom; i++) {
-        anglesArray[i] = this.degreesToRadians(rv.rotationangles[i].value);
+        anglesArray[i] = this.degreesToRadians(hrv.rotationangles[i].value);
       }
 
       //console.log("anglesArray: " + anglesArray)
@@ -259,24 +259,24 @@ Vue.component('unistochastic-matrix', {
 
       //----- Penalize extra for any element whose desired value is zero ------
       //TODO: Make these operations faster if the concept works
-      this.rv.euclideandistance = math.sqrt(sumOfSquares);
-      //console.log("this.rv.euclideandistance: " + this.rv.euclideandistance);
+      this.hrv.euclideandistance = math.sqrt(sumOfSquares);
+      //console.log("this.hrv.euclideandistance: " + this.hrv.euclideandistance);
 
-      this.rv.addedpenalty = 0.0;
+      this.hrv.addedpenalty = 0.0;
       var desiredMatrixArray = math.flatten(desiredMatrix).valueOf(); //TODO: Move or optimize
       var computedMatrixArray = math.flatten(computedMatrix).valueOf(); //TODO: optimize
       for (var i = 0; i < desiredMatrixArray.length; i++) {
         if (desiredMatrixArray[i] < 0.01) {
-          this.rv.addedpenalty += computedMatrixArray[i] * this.rv.zeroelementpenaltyfactor;
+          this.hrv.addedpenalty += computedMatrixArray[i] * this.hrv.zeroelementpenaltyfactor;
         }
       }
-      //console.log("this.rv.addedpenalty: " + this.rv.addedpenalty);
+      //console.log("this.hrv.addedpenalty: " + this.hrv.addedpenalty);
 
-      this.rv.totalcostbetweenmatrices = this.rv.euclideandistance + this.rv.addedpenalty;
+      this.hrv.totalcostbetweenmatrices = this.hrv.euclideandistance + this.hrv.addedpenalty;
       //----- End Penalize extra for any element whose desired value is zero -----
 
-      //console.log("euclideandistance: " + this.rv.euclideandistance);
-      return this.rv.totalcostbetweenmatrices;
+      //console.log("euclideandistance: " + this.hrv.euclideandistance);
+      return this.hrv.totalcostbetweenmatrices;
     },
 
     loss: function(arrayOfAngles) {
@@ -302,15 +302,15 @@ Vue.component('unistochastic-matrix', {
       //For each degree of freedom this will be either 1 or -1, signifying direction of movement
       var unitDirectionArray = Array(rotationDegOfFreedom).fill(1);
 
-      var moveRadians = this.degreesToRadians(math.pow(10, -rv.degreedecimals));
+      var moveRadians = this.degreesToRadians(math.pow(10, -hrv.degreedecimals));
       var midpointAngleRad = this.degreesToRadians(180);
 
       for (var i = 0; i < rotationDegOfFreedom; i++) {
-        arrayOfAnglesRad[i] = this.degreesToRadians(rv.rotationangles[i].value);
+        arrayOfAnglesRad[i] = this.degreesToRadians(hrv.rotationangles[i].value);
       }
       minDistance = lossFunction(arrayOfAnglesRad);
 
-      for (var epochIdx = 0; epochIdx < rv.numepochs; epochIdx++) {
+      for (var epochIdx = 0; epochIdx < hrv.numepochs; epochIdx++) {
         //console.log("epochIdx: " + epochIdx);
         for (var dofIdx = 0; dofIdx < rotationDegOfFreedom; dofIdx++) {
           //console.log("dofIdx: " + dofIdx);
@@ -350,7 +350,7 @@ Vue.component('unistochastic-matrix', {
                   arrayOfAnglesRad[dofIdx] = curAngRad;
                   finishedWithWhileLoop = true;
                 }
-                else if (loopIterations > 360 / math.pow(10, -rv.degreedecimals)) {
+                else if (loopIterations > 360 / math.pow(10, -hrv.degreedecimals)) {
                   alert("Unexpected: Was in while loop over " + loopIterations + " iterations.");
                   finishedWithWhileLoop = true;
                 }
@@ -364,7 +364,7 @@ Vue.component('unistochastic-matrix', {
                 finishedWithWhileLoop = true;
               }
             }
-            //rv.rotationangles[dofIdx].value = radiansToDegrees(curAngRad);
+            //hrv.rotationangles[dofIdx].value = radiansToDegrees(curAngRad);
           }
           //console.log("  minDistance: " + minDistance);
           //console.log("  euclideanDistance: " + lossFunction(arrayOfAnglesRad));
