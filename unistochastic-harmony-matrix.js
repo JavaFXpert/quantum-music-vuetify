@@ -1,4 +1,5 @@
 //TODO: Allow complex numbers in unitary matrix
+//TODO: Fold this back into unistochastic-matrix component
 
 // constant for number of degrees of freedom in 8 dimensional rotations
 var rotationDegOfFreedom = 28;

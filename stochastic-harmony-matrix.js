@@ -1,4 +1,5 @@
 //TODO: Implement ideas from Bret Victor's Tangle project
+//TODO: Fold this back into stochastic-matrix component
 
 // register the stochastic-harmony-matrix component
 Vue.component('stochastic-harmony-matrix', {
