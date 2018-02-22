@@ -1,3 +1,5 @@
+//TODO: Allow complex numbers in unitary matrix
+
 // The rotation angles to observe
 var rotationangles  = [
   { label: "CD", value: 0 },
@@ -35,7 +37,7 @@ var rotationangles  = [
 var rotationDegOfFreedom = 28;
 
 // Determines whether to show the unistochastic (squared) matrix
-var showuni = true;
+//var showuni = true;
 
 // Object wrapper for reactive variables.
 // TODO: Ascertain how to not have to use a wrapper to make reactive variables stay in sync with
@@ -73,7 +75,7 @@ Vue.component('unistochastic-matrix', {
   data: function() {
     return {
       rotationangles: rotationangles,
-      showuni: showuni,
+      showuni: true,
       rv: rv
     }
   },
@@ -132,12 +134,12 @@ Vue.component('unistochastic-matrix', {
   computed: {
     matrixAsArray: function () {
       //return math.eye(8).valueOf();
-      return this.computeStochasticMatrix(this.createAnglesArrayFromRotationAngles(), showuni).valueOf();
+      return this.computeStochasticMatrix(this.createAnglesArrayFromRotationAngles(), this.showuni).valueOf();
     }
   },
   methods: {
     toggleuni: function () {
-      showuni = !showuni;
+      this.showuni = !(this.showuni);
 
       //TODO: Find a way for the showuni variable to cause
       // the computeStochasticMatrix() method to be run, instead of

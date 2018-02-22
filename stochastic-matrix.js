@@ -1,3 +1,5 @@
+//TODO: Implement ideas from Bret Victor's Tangle project
+
 // register the stochastic-matrix component
 Vue.component('stochastic-matrix', {
   props: {
