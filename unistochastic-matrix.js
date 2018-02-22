@@ -36,9 +36,6 @@ var rotationangles  = [
 // constant for number of degrees of freedom in 8 dimensional rotations
 var rotationDegOfFreedom = 28;
 
-// Determines whether to show the unistochastic (squared) matrix
-//var showuni = true;
-
 // Object wrapper for reactive variables.
 // TODO: Ascertain how to not have to use a wrapper to make reactive variables stay in sync with
 //       the Vue data.

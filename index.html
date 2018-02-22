@@ -91,30 +91,6 @@
               </v-container>
             </v-tab-item>
 
-            <v-tab>Harmony Matrices</v-tab>
-            <v-tab-item>
-              <v-container fluid>
-                <v-layout row wrap>
-                  <v-flex xs6>
-                    <unistochastic-matrix
-                        :numrowscols="gridNumRowsCols"
-                        :rownames="gridRowNames"
-                        :colnames="gridColNames"
-                        :wantedmatrix="desiredHarmonyMatrix">
-                    </unistochastic-matrix>
-                  </v-flex>
-                  <v-flex xs6>
-                    <stochastic-matrix
-                        :numrowscols="gridNumRowsCols"
-                        :rownames="gridRowNames"
-                        :colnames="gridColNames"
-                        :mathmatrix="desiredHarmonyMatrix.valueOf()">
-                    </stochastic-matrix>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-            </v-tab-item>
-
             <v-tab>Piano</v-tab>
             <v-tab-item>
               <v-container fluid>
